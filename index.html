@@ -25,11 +25,11 @@
 
                      <div class="col-md-5 center-item">
                         <div class="input-group number-spinner">
-                           <button class="btn btn-default"><i class="fas fa-minus"></i></button>
-                           <input type="text" class="form-control text-center" value="1">
-                           <button class="btn btn-default"><i class="fas fa-plus"></i></button>
+                           <button id="firstDecreasingBtn" class="btn btn-default"><i class="fas fa-minus"></i></button>
+                           <input id="firstItemQuantity" type="text" class="form-control text-center" value="1">
+                           <button id="firstIncreasingBtn" class="btn btn-default"><i class="fas fa-plus"></i></button>
                         </div>
-                        <h5>$1219</h5>
+                        <h5>$<span id="firstProductPrice">1219</span></h5>
                         <img src="images/remove.png" alt="" class="remove-item">
                      </div>
                   </div>
@@ -43,12 +43,12 @@
                      </div>
                      <div class="col-md-5 center-item">
                         <div class="input-group number-spinner">
-                           <button class="btn btn-default"><i class="fas fa-minus"></i></button>
-                           <input type="text" class="form-control text-center" value="1">
-                           <button class="btn btn-default"><i class="fas fa-plus"></i></button>
+                           <button id="secondDecreasingBtn" class="btn btn-default"><i class="fas fa-minus"></i></button>
+                           <input id="secondItemQuantity" type="text" class="form-control text-center" value="1">
+                           <button id="secondIncreasingBtn" class="btn btn-default"><i class="fas fa-plus"></i></button>
 
                         </div>
-                        <h5>$59</h5>
+                        <h5>$<span id="secondProductPrice">59</span></h5>
                         <img src="images/remove.png" alt="" class="remove-item">
                      </div>
                   </div>
@@ -77,6 +77,58 @@
          </div>
       </div>
    </section>
+
+   <script>
+      //for decreasing quantity of items
+      const firstDecreasedValue = document.getElementById("firstDecreasingBtn");
+      firstDecreasedValue.addEventListener('click', function(even){
+         const oldValue = document.getElementById("firstItemQuantity").value;
+         negativeCalculation(oldValue, "firstItemQuantity", "firstProductPrice");
+      })
+
+      const secondDecreasedValue = document.getElementById("secondDecreasingBtn");
+      secondDecreasedValue.addEventListener('click', function(even){
+         const oldValue = document.getElementById("secondItemQuantity").value;
+         negativeCalculation(oldValue, "secondItemQuantity", "secondProductPrice");
+      })
+
+      const firstIncreasedValue = document.getElementById("firstIncreasingBtn");
+      firstIncreasedValue.addEventListener('click', function(even){
+         const oldValue = document.getElementById("firstItemQuantity").value;
+         positiveCalculation(oldValue, "firstItemQuantity", "firstProductPrice");
+      })
+
+      function negativeCalculation(oldValue, quantity, price){
+         let oldValueNumber = parseInt(oldValue);
+         let itemQuantity = 1;
+         let itemNumber = parseInt(itemQuantity);
+         if(oldValueNumber>0){
+            itemNumber =  oldValueNumber - itemNumber;
+            document.getElementById(quantity).value = itemNumber;
+
+            const productPrice = document.getElementById(price).innerText;
+            let productPriceNumber = parseFloat(productPrice);
+            let totalProductPrice = itemNumber * productPriceNumber;
+            document.getElementById(price).innerText = totalProductPrice;
+         }
+      }
+
+      function positiveCalculation(oldValue, quantity, price){
+         let oldValueNumber = parseInt(oldValue);
+         let itemQuantity = 1;
+         let itemNumber = parseInt(itemQuantity);
+         if(oldValueNumber<10){
+            itemNumber =  oldValueNumber + itemNumber;
+            document.getElementById(quantity).value = itemNumber;
+
+            const productPrice = document.getElementById(price).innerText;
+            let productPriceNumber = parseFloat(productPrice);
+            
+            let totalProductPrice = itemNumber * temp;
+            document.getElementById(price).innerText = totalProductPrice;
+         }
+      }
+   </script>
 </body>
 
 </html>
